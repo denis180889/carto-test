@@ -50,7 +50,7 @@ test('Test 3', async function ({ homePage, mapPage }) {
         await mapPage.page.mouse.move(mapX + 100, mapY + 270, { steps: 10 });
         await mapPage.page.mouse.up();
 
-        await mapPage.increaseZoomBtn.click({ clickCount: 2 })
+        await mapPage.increaseZoomBtn.click({ clickCount: 2, delay: 500 });
     });
 
     await test.step('Check that the widget values are adapted', async () => {
