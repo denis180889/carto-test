@@ -1,4 +1,7 @@
 import { type PlaywrightTestConfig } from '@playwright/test';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const config: PlaywrightTestConfig = {
   name: 'automation-tests',
@@ -38,12 +41,10 @@ const config: PlaywrightTestConfig = {
     },
   ],
   snapshotDir: 'ui/resources/screenshots',
-  retries: 1,
-  maxFailures: 10,
   testDir: 'ui/tests/',
-  reporter: process.env.CI ? [['list'], ['github'], ['html', { open: 'never' }]] : [['list'], ['html']],
+  reporter: [['list'], ['html']],
   reportSlowTests: null,
-  timeout: 300_000,
+  timeout: 200_000,
 };
 
 export default config;
