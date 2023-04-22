@@ -1,4 +1,5 @@
 import { test, expect } from '../../fixture';
+import { FacilitiesItem } from '../constants/facilitiesItem';
 
 test('Test 3', async function ({ homePage, mapPage }) {
 
@@ -34,6 +35,10 @@ test('Test 3', async function ({ homePage, mapPage }) {
     await test.step('Check Facilities and Structures widget', async () => {
         await expect(mapPage.facilitiesAndStructuresWidgetSection).toBeVisible();
         await expect(mapPage.map).toHaveScreenshot();
+
+        await expect(mapPage.facilitiesItem(FacilitiesItem.PreShcool)).toContainText("493");
+        await expect(mapPage.facilitiesItem(FacilitiesItem.FireStation)).toContainText("101");
+        await expect(mapPage.facilitiesItem(FacilitiesItem.PoliceStation)).toContainText("38");
     });
 
     await test.step('Zoom in Honolulu island', async () => {
@@ -44,5 +49,13 @@ test('Test 3', async function ({ homePage, mapPage }) {
         await mapPage.page.mouse.down();
         await mapPage.page.mouse.move(mapX + 100, mapY + 270, { steps: 10 });
         await mapPage.page.mouse.up();
+
+        await mapPage.increaseZoomBtn.click({ clickCount: 2 })
+    });
+
+    await test.step('Check that the widget values are adapted', async () => {
+        await expect(mapPage.facilitiesItem(FacilitiesItem.PreShcool)).toContainText("331");
+        await expect(mapPage.facilitiesItem(FacilitiesItem.FireStation)).toContainText("44");
+        await expect(mapPage.facilitiesItem(FacilitiesItem.PoliceStation)).toContainText("11");
     });
 });
