@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test';
-import { FacilitiesItem } from '../constants/facilitiesItem';
+import { FacilitiesItemTitle } from '../constants/facilitiesItemTitle';
 
 export class MapPage {
     page: Page;
@@ -7,9 +7,10 @@ export class MapPage {
     insightsBtn: Locator;
     thematicIndicesWidgetBtn: Locator;
     facilitiesAndStructuresWidgetSection: Locator;
-    facilitiesItem: (name: FacilitiesItem) => Locator;
+    facilitiesItem: (name: FacilitiesItemTitle) => Locator;
 
     map: Locator;
+    mapPopup: (text: string) => Locator
     increaseZoomBtn: Locator;
 
     HDOTAssetsBtn: Locator;
@@ -54,7 +55,8 @@ export class MapPage {
         this.facilitiesAndStructuresWidgetSection = page.locator("section[aria-label='Facilities and Structures']")
         this.facilitiesItem = (name) => this.facilitiesAndStructuresWidgetSection.locator(`.MuiGrid-wrap-xs-nowrap:has-text("${name}")`)
 
-        this.map = page.locator('#deckgl-overlay');
+        this.map = page.locator('#deckgl-wrapper');
+        this.mapPopup = text => this.map.locator(`div.content span:text-is('${text}')`)
         this.increaseZoomBtn = page.locator("[aria-label='Increase zoom']");
 
         this.HDOTAssetsBtn = page.locator("[aria-controls='simple-menu']:has-text('HDOT Assets')");

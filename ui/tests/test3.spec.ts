@@ -1,5 +1,5 @@
 import { test, expect } from '../../fixture';
-import { FacilitiesItem } from '../constants/facilitiesItem';
+import { FacilitiesItemTitle } from '../constants/facilitiesItemTitle';
 
 test('Test 3', async function ({ homePage, mapPage }) {
 
@@ -36,9 +36,9 @@ test('Test 3', async function ({ homePage, mapPage }) {
         await expect(mapPage.facilitiesAndStructuresWidgetSection).toBeVisible();
         await expect(mapPage.map).toHaveScreenshot();
 
-        await expect(mapPage.facilitiesItem(FacilitiesItem.PreShcool)).toContainText("493");
-        await expect(mapPage.facilitiesItem(FacilitiesItem.FireStation)).toContainText("101");
-        await expect(mapPage.facilitiesItem(FacilitiesItem.PoliceStation)).toContainText("38");
+        await expect(mapPage.facilitiesItem(FacilitiesItemTitle.PreSchool)).toContainText("493");
+        await expect(mapPage.facilitiesItem(FacilitiesItemTitle.FireStation)).toContainText("101");
+        await expect(mapPage.facilitiesItem(FacilitiesItemTitle.PoliceStation)).toContainText("38");
     });
 
     await test.step('Zoom in Honolulu island', async () => {
@@ -54,8 +54,20 @@ test('Test 3', async function ({ homePage, mapPage }) {
     });
 
     await test.step('Check that the widget values are adapted', async () => {
-        await expect(mapPage.facilitiesItem(FacilitiesItem.PreShcool)).toContainText("331");
-        await expect(mapPage.facilitiesItem(FacilitiesItem.FireStation)).toContainText("44");
-        await expect(mapPage.facilitiesItem(FacilitiesItem.PoliceStation)).toContainText("11");
+        await expect(mapPage.facilitiesItem(FacilitiesItemTitle.PreSchool)).toContainText("331");
+        await expect(mapPage.facilitiesItem(FacilitiesItemTitle.FireStation)).toContainText("44");
+        await expect(mapPage.facilitiesItem(FacilitiesItemTitle.PoliceStation)).toContainText("11");
+    });
+
+    await test.step('Filter by Police Station item and check the map', async () => {
+        await mapPage.facilitiesItem(FacilitiesItemTitle.PoliceStation).click();
+        await expect(mapPage.map).toHaveScreenshot();
+    });
+
+    await test.step('Hover one of the police station on the map and check popup', async () => {
+        const box = await mapPage.map.boundingBox();
+        await mapPage.page.mouse.move(box!.x + 271, box!.y + 421);
+        await expect(mapPage.mapPopup("Name: Wahiawa District Station (Police Station)"), "Popup with police station should be visible")
+            .toBeVisible()
     });
 });
