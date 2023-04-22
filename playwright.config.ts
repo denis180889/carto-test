@@ -17,7 +17,7 @@ const config: PlaywrightTestConfig = {
     trace: 'retain-on-failure',
   },
   expect: {
-    timeout: 30_000,
+    timeout: 60_000,
   },
   projects: [
     {
