@@ -2,9 +2,10 @@
   "name": "carto-test",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test-chrome": "playwright test --project=chrome",
+    "test-webkit": "playwright test --project=webkit",
+    "test-firefox": "playwright test --project=firefox"
   },
   "author": "",
   "license": "ISC",
