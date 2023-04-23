@@ -47,4 +47,18 @@ test('Test 4', async function ({ homePage, mapPage }) {
         await homePage.logo.click();
         await expect(homePage.exploreMapBtn).toBeInViewport();
     });
+
+    await test.step('Go to the map page', async () => {
+        await homePage.goToMapPage();
+    });
+
+    await test.step('Click map zoom and check zoom level', async () => {
+        await expect(mapPage.zoomLevel).toHaveText("7");
+        await mapPage.increaseZoomBtn.click();
+        await expect(mapPage.zoomLevel).toHaveText("8");
+        await mapPage.increaseZoomBtn.dblclick();
+        await expect(mapPage.zoomLevel).toHaveText("10");
+        await mapPage.decreaseZoomBtn.click();
+        await expect(mapPage.zoomLevel).toHaveText("9");
+    });
 });

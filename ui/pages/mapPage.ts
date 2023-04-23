@@ -11,6 +11,8 @@ export class MapPage {
 
     map: Locator;
     mapPopup: (text: string) => Locator
+    zoomLevel: Locator;
+    decreaseZoomBtn: Locator;
     increaseZoomBtn: Locator;
 
     HDOTAssetsBtn: Locator;
@@ -36,6 +38,8 @@ export class MapPage {
 
         this.map = page.locator('#deckgl-wrapper');
         this.mapPopup = text => this.map.locator(`div.content span:text-is('${text}')`)
+        this.zoomLevel = page.locator("span.MuiTypography-displayBlock");
+        this.decreaseZoomBtn = page.locator("[aria-label='Decrease zoom']");
         this.increaseZoomBtn = page.locator("[aria-label='Increase zoom']");
 
         this.HDOTAssetsBtn = page.locator("[aria-controls='simple-menu']:has-text('HDOT Assets')");
